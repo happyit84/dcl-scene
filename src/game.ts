@@ -6,6 +6,11 @@ import Script3 from "../ab84996d-dcdc-429c-818e-a7640239c803/src/item"
 import Script4 from "../b88efbbf-2a9a-47b4-86e1-e38ecc2b433b/src/item"
 import * as ui from '@dcl/ui-scene-utils'
 
+// contract
+import { getProvider } from '@decentraland/web3-provider'
+import { getUserAccount } from '@decentraland/EthereumController'
+import { RequestManager, ContractFactory } from "eth-connect"
+import { LockerABI } from "contract/locker"
 
 
 const _scene = new Entity('_scene')
@@ -746,17 +751,42 @@ let ok = new ui.OkPrompt('Anything_', () => {
   
 }, 'OK', false);*/
 
+function mint() {
+  executeTask(async () => {
+    try {
+      const provider =  await getProvider()
+      const requestManager = new RequestManager(provider)
+      const factory =  new ContractFactory(requestManager, LockerABI)
+      const contract = (await factory.at("0x35b20fFB43c773eD6f35Cac860c7c2ddf37B8747")) as any
+      const address = await getUserAccount()
+      log("user address: " + address)
+      const res = contract.mintToken(
+        "bafkreid4bgisghndirgd4pna7pkojkvugmntxugar72frnkyavply4bf6u",
+        {
+          from: address,
+          value: 123
+        }
+      )
+      log("mint succeeded")
+      let okPrompt = new ui.OkPrompt('Your locker has been minted successfully!')
+    } catch (error) {
+      log(error.toString())
+    }  
+  })
+}
+
+
 let mainPrompt = new ui.CustomPrompt(ui.PromptStyles.DARKLARGE, 700, 500, false)
 let text = mainPrompt.addText("Hello World again", 0, 200)
-let button = mainPrompt.addButton('Close', -100, -100, () => {
-  mainPrompt.hide()  
+
+let textInput = mainPrompt.addTextBox(0, 0, 'No size?')
+
+let button = mainPrompt.addButton('Mint', -100, -100, () => {
+  // minting
+  mint()
 }, ui.ButtonStyles.E)
-let inputMsg = ''
-let textInput = mainPrompt.addTextBox(0, 0, 'No size?', (e: string) => {
-  inputMsg = e;
-})
-let button2 = mainPrompt.addButton('Update Text ?????', 100, -100, () => {
-  text.hide()
-  text = mainPrompt.addText(textInput.currentText, 0, 200)
+
+let button2 = mainPrompt.addButton('Cancel', 100, -100, () => {
+  mainPrompt.hide()
 }, ui.ButtonStyles.F)
 
