@@ -1,5 +1,5 @@
 {
-  "name": "44b33a47-f232-435c-9a3c-646871a3a33f",
+  "name": "f8d078b2-15d5-406a-9aa1-1741723b4498",
   "version": "1.0.0",
   "description": "My new Decentraland project",
   "scripts": {
@@ -16,11 +16,9 @@
   "dependencies": {
     "@dcl/ui-scene-utils": "^1.8.1",
     "decentraland-builder-scripts": "latest",
-    "decentraland-ecs": "latest",
-    "eth-connect": "^6.0.2"
+    "decentraland-ecs": "latest"
   },
   "bundledDependencies": [
-    "@dcl/ui-scene-utils",
-    "eth-connect"
+    "@dcl/ui-scene-utils"
   ]
 }

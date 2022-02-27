@@ -1,24 +1,24 @@
 {
   "display": {
-    "title": "Test2",
+    "title": "Shin_20220227",
     "favicon": "favicon_asset",
     "navmapThumbnail": "scene-thumbnail.png"
   },
   "owner": "",
   "contact": {
-    "name": "Entre#f583",
+    "name": "Shin#a8cc",
     "email": ""
   },
   "main": "bin/game.js",
   "tags": [],
   "scene": {
     "parcels": [
-      "0,0",
-      "0,1",
-      "1,0",
-      "1,1"
+      "-20,-133",
+      "-20,-132",
+      "-19,-133",
+      "-19,-132"
     ],
-    "base": "0,0"
+    "base": "-20,-133"
   },
   "communications": {
     "type": "webrtc",
@@ -34,7 +34,7 @@
   "source": {
     "version": 1,
     "origin": "builder",
-    "projectId": "44b33a47-f232-435c-9a3c-646871a3a33f",
+    "projectId": "f8d078b2-15d5-406a-9aa1-1741723b4498",
     "point": {
       "x": 0,
       "y": 0
