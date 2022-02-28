@@ -1,4 +1,8 @@
 import * as ui from '@dcl/ui-scene-utils'
+import { getProvider } from '@decentraland/web3-provider'
+import { getUserAccount } from '@decentraland/EthereumController'
+//import { RequestManager, ContractFactory } from 'eth-connect'
+import { LockerABI } from "abi/LockerABI"
 
 const _scene = new Entity('_scene')
 engine.addEntity(_scene)
@@ -59,4 +63,20 @@ entity4.addComponentOrReplace(transform5)
 
 ////////////////////////////////////////////////////////////////////////
 
-let label = new ui.CornerLabel("Welcome to my world!", -100)
+
+
+//let label = new ui.CornerLabel("Welcome to my world!", -100)
+
+executeTask(async () => {
+  try{
+    /*const provider = await getProvider()
+    const requestManager = new RequestManager(provider)
+    const factory = new ContractFactory(requestManager, LockerABI)
+    const contract = (await factory.at("0x35b20fFB43c773eD6f35Cac860c7c2ddf37B8747")) as any*/    
+    const address = await getUserAccount()
+    log("user address: " + address)
+    let label2 = new ui.CornerLabel("In Testing: " + address, -100)
+  } catch (error) {
+    log("executeTask error: " + error.toString())
+  }
+})
