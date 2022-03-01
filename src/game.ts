@@ -74,8 +74,7 @@ executeTask(async () => {
     const factory = new ContractFactory(requestManager, LockerABI)
     const contract = (await factory.at("0x35b20fFB43c773eD6f35Cac860c7c2ddf37B8747")) as any*/    
     const address = await getUserAccount()
-    log("user address: " + address)
-    let label2 = new ui.CornerLabel("In Testing: " + address, -100)
+    log("user address: " + address) // add DEBUG_SCENE_LOG to url parameter to see log on deployed scene
   } catch (error) {
     log("executeTask error: " + error.toString())
   }
