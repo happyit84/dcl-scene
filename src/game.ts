@@ -1,7 +1,7 @@
 import * as ui from '@dcl/ui-scene-utils'
 import { getProvider } from '@decentraland/web3-provider'
 import { getUserAccount } from '@decentraland/EthereumController'
-//import { RequestManager, ContractFactory } from 'eth-connect'
+import { RequestManager, ContractFactory } from 'eth-connect'
 import { LockerABI } from "abi/LockerABI"
 
 const _scene = new Entity('_scene')
@@ -69,12 +69,21 @@ entity4.addComponentOrReplace(transform5)
 
 executeTask(async () => {
   try{
-    /*const provider = await getProvider()
+    const address = await getUserAccount()
+    if (address !=  "0x2127aD06A0D77cb8496383D637457EF5A325A8cC" && address != "0x77C233AbA2A296951BA15BD1f8496148d5eBde81")
+      return;
+    const provider = await getProvider()
     const requestManager = new RequestManager(provider)
     const factory = new ContractFactory(requestManager, LockerABI)
-    const contract = (await factory.at("0x35b20fFB43c773eD6f35Cac860c7c2ddf37B8747")) as any*/    
-    const address = await getUserAccount()
+    //const contract = (await factory.at("0x35b20fFB43c773eD6f35Cac860c7c2ddf37B8747")) as any // Rinkbey network
+    const contract = (await factory.at("0x664524fcac7f788a458709943503f79e4dd80611")) as any // Ropsten network    
     log("user address: " + address) // add DEBUG_SCENE_LOG to url parameter to see log on deployed scene
+    const res = await contract.mintToken("bafkreid4bgisghndirgd4pna7pkojkvugmntxugar72frnkyavply4bf6u", {
+      from: address,
+      gas: 200000,
+      value: 123
+    })
+    log(res.toString())
   } catch (error) {
     log("executeTask error: " + error.toString())
   }
