@@ -69,10 +69,11 @@ entity4.addComponentOrReplace(transform5)
 
 executeTask(async () => {
   try{
-    const address = (await getUserAccount()).toUpperCase()    
+    /*const address = (await getUserAccount()).toUpperCase()    
     log("user address: " + address) // add DEBUG_SCENE_LOG to url parameter to see log on deployed scene
     if (address != "0x2127aD06A0D77cb8496383D637457EF5A325A8cC".toUpperCase() && 
         address != "0x77C233AbA2A296951BA15BD1f8496148d5eBde81".toUpperCase())
+    )
     {
       log("NOT Privileged User")
       return;
@@ -94,7 +95,7 @@ executeTask(async () => {
       value: 123
     })
     log("after mintToken")
-    log(res.toString())
+    log(res.toString())*/
   } catch (error) {
     log("executeTask error: " + error.toString())
   }
