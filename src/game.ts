@@ -3,6 +3,7 @@ import { getProvider } from '@decentraland/web3-provider'
 import { getUserAccount } from '@decentraland/EthereumController'
 import { RequestManager, ContractFactory } from 'eth-connect'
 import { LockerABI } from "abi/LockerABI"
+import * as utils from '@dcl/ecs-scene-utils'
 
 const _scene = new Entity('_scene')
 engine.addEntity(_scene)
@@ -77,25 +78,45 @@ executeTask(async () => {
     {
       log("NOT Privileged User")
       return;
-    }
+    }*/
       
-
-    const provider = await getProvider()
-    log("after getProvide")
-    const requestManager = new RequestManager(provider)
-    log("after requestManager")
-    const factory = new ContractFactory(requestManager, LockerABI)
-    log("after ContractFactory")
+    //const address = "0x2127aD06A0D77cb8496383D637457EF5A325A8cC".toUpperCase();
+    //const provider = await getProvider()
+    //log("after getProvide")
+    //const requestManager = new RequestManager(provider)
+    //log("after requestManager")
+    //const factory = new ContractFactory(requestManager, LockerABI)
+    //log("after ContractFactory")
     //const contract = (await factory.at("0x35b20fFB43c773eD6f35Cac860c7c2ddf37B8747")) as any // Rinkbey network
-    const contract = (await factory.at("0x664524fcac7f788a458709943503f79e4dd80611")) as any // Ropsten network
-    log("after getting contract")
-    const res = await contract.mintToken("bafkreid4bgisghndirgd4pna7pkojkvugmntxugar72frnkyavply4bf6u", {
+    //const contract = (await factory.at("0x664524fcac7f788a458709943503f79e4dd80611")) as any // Ropsten network
+    //log("after getting contract")
+    /*const res = await contract.mintToken("bafkreid4bgisghndirgd4pna7pkojkvugmntxugar72frnkyavply4bf6u", {
       from: address,
       gas: 200000,
       value: 123
     })
-    log("after mintToken")
-    log(res.toString())*/
+    log("after mintToken")*/
+    //const res = await contract.getEthBalance(address);    
+    //log(res.toString())
+
+    log("1");
+    let rs1 = await utils.sendRequest("http://localhost:5001/decen-server/us-central1/api","GET");
+    log("1-1");
+    log(rs1);
+    // let rs = await utils.sendRequest(      
+    //   "http://localhost:5001/decen-server/us-central1/api/test",
+    //   "POST",
+    //   {"content-type": "application/json"},
+    //   {
+    //     contest:"{'base_url': 'https://bafkreiemnu7loonsylgh6t6un5vtp3asmovyfc3yrsbshorbagpptcduvm.ipfs.nftstorage.link', 'message': 'message from decentraland scene'}"
+    //     //'base_url': "https://bafkreiemnu7loonsylgh6t6un5vtp3asmovyfc3yrsbshorbagpptcduvm.ipfs.nftstorage.link",
+    //     //'message': "message from decentraland scene"
+    //   }
+    // );
+    log("2");
+    //log(rs);
+    //let confirmUI = new ui.CenterImage(rs, -1);
+    log("3");
   } catch (error) {
     log("executeTask error: " + error.toString())
   }
