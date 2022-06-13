@@ -18,6 +18,7 @@ const entity = new Entity('entity')
 engine.addEntity(entity)
 entity.setParent(_scene)
 const gltfShape = new GLTFShape("62b9b3e0-f0d9-4693-b8ee-fee3c20ca29c/FloorBasePebbles_01/FloorBasePebbles_01.glb")
+//const gltfShape = new GLTFShape("D:\\repos\\threejs-webpack-starter\\torus.gltf")
 gltfShape.withCollisions = true
 gltfShape.isPointerBlocker = true
 gltfShape.visible = true
@@ -61,6 +62,33 @@ const transform5 = new Transform({
   scale: new Vector3(1, 1, 1)
 })
 entity4.addComponentOrReplace(transform5)
+
+for (var i = 0 ; i < 100; i++)
+{
+  const entity5 = new Entity('torus' + i.toString())
+  //log('a1');
+  engine.addEntity(entity5)
+  //log('a2');
+  entity5.setParent(_scene)
+  //log('a3');
+  const gltfShape2 = new GLTFShape("torus.gltf")
+  gltfShape2.withCollisions = false
+  gltfShape2.isPointerBlocker = true;
+  gltfShape2.visible = true;
+  //log('a4');
+  entity5.addComponentOrReplace(gltfShape2)
+  //log('a5');
+  const transform6 = new Transform({
+    position: new Vector3(1+0.1*i, 1, 8),
+    rotation: new Quaternion(1, 0, 0, 1),
+    scale: new Vector3(1, 1, 1)
+  })
+  //log('a6');
+  entity5.addComponentOrReplace(transform6)
+  //log('a7');
+  log("torus"+(i+1).toString())
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 
