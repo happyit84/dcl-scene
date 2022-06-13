@@ -59,4 +59,17 @@ entity4.addComponentOrReplace(transform5)
 
 ////////////////////////////////////////////////////////////////////////
 
-let label = new ui.CornerLabel("Welcome to my world!", -100)
+const myEntity = new Entity("myEntity")
+engine.addEntity(myEntity)
+myEntity.setParent(_scene)
+myEntity.addComponent(new BoxShape())
+const transform6 = new Transform({
+  position: new Vector3(8, 1, 8),
+  rotation: new Quaternion(0, 0, 0, 1),
+  scale: new Vector3(1, 1, 1)
+})
+myEntity.addComponentOrReplace(transform6)
+const myTexture = new Texture("material/decentraland-mana-logo.png")
+const myMaterial = new Material()
+myMaterial.albedoTexture = myTexture
+myEntity.addComponent(myMaterial)
