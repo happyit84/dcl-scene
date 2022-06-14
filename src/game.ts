@@ -62,14 +62,14 @@ entity4.addComponentOrReplace(transform5)
 const myEntity = new Entity("myEntity")
 engine.addEntity(myEntity)
 myEntity.setParent(_scene)
-myEntity.addComponent(new BoxShape())
+myEntity.addComponent(new PlaneShape())
 const transform6 = new Transform({
-  position: new Vector3(8, 1, 8),
-  rotation: new Quaternion(0, 0, 0, 1),
-  scale: new Vector3(1, 1, 1)
+  position: new Vector3(16, 18, 16),
+  rotation: new Quaternion(1, 0, 0, 0),
+  scale: new Vector3(32, 32, 2)
 })
 myEntity.addComponentOrReplace(transform6)
-const myTexture = new Texture("material/decentraland-mana-logo.png")
+const myTexture = new Texture("material/decentraland-mana-logo.png", {wrap: 2, samplingMode: 1})
 //const myMaterial = new Material()
 //myMaterial.albedoTexture = myTexture
 const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
