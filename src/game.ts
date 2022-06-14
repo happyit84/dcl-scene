@@ -70,6 +70,8 @@ const transform6 = new Transform({
 })
 myEntity.addComponentOrReplace(transform6)
 const myTexture = new Texture("material/decentraland-mana-logo.png")
-const myMaterial = new Material()
-myMaterial.albedoTexture = myTexture
+//const myMaterial = new Material()
+//myMaterial.albedoTexture = myTexture
+const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
+myMaterial.texture = myTexture
 myEntity.addComponent(myMaterial)
