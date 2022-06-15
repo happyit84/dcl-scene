@@ -69,9 +69,17 @@ const transform6 = new Transform({
   scale: new Vector3(32, 32, 2)
 })
 myEntity.addComponentOrReplace(transform6)
-const myTexture = new Texture("material/decentraland-mana-logo.png", {wrap: 2, samplingMode: 1})
+const myTextureA = new Texture("material/decentraland-mana-logo.png")
+const myTextureB = new Texture("material/beef.jpg")
 //const myMaterial = new Material()
 //myMaterial.albedoTexture = myTexture
 const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
-myMaterial.texture = myTexture
+myMaterial.texture = myTextureA
 myEntity.addComponent(myMaterial)
+
+
+const input = Input.instance
+input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
+  log("PRIMARY BUTTON DOWN", e)
+  myMaterial.texture = (myMaterial.texture == myTextureA ? myTextureB : myTextureA)    
+})
