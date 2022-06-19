@@ -1,4 +1,6 @@
 import * as ui from '@dcl/ui-scene-utils'
+import { getUserData } from '@decentraland/Identity'
+import { UserData } from '@decentraland/Players'
 
 const _scene = new Entity('_scene')
 engine.addEntity(_scene)
@@ -78,8 +80,15 @@ myMaterial.texture = myTextureA
 myEntity.addComponent(myMaterial)
 
 
+let messageBox = new ui.CornerLabel("-", -700, -40);
+
 const input = Input.instance
 input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   log("PRIMARY BUTTON DOWN", e)
-  myMaterial.texture = (myMaterial.texture == myTextureA ? myTextureB : myTextureA)    
+  myMaterial.texture = (myMaterial.texture == myTextureA ? myTextureB : myTextureA)
+  getUserData().then((userData: UserData) => {
+    const now = new Date()
+    const message = "[" + now.toTimeString() + "] " + userData.displayName + " pressed primary button."
+    messageBox.set(message)
+  });
 })
