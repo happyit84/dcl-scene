@@ -61,23 +61,36 @@ entity4.addComponentOrReplace(transform5)
 
 ////////////////////////////////////////////////////////////////////////
 
-const myEntity = new Entity("myEntity")
-engine.addEntity(myEntity)
-myEntity.setParent(_scene)
-myEntity.addComponent(new PlaneShape())
-const transform6 = new Transform({
-  position: new Vector3(16, 18, 16),
-  rotation: new Quaternion(1, 0, 0, 0),
-  scale: new Vector3(32, 32, 2)
-})
-myEntity.addComponentOrReplace(transform6)
 const myTextureA = new Texture("material/decentraland-mana-logo.png")
 const myTextureB = new Texture("material/beef.jpg")
-//const myMaterial = new Material()
-//myMaterial.albedoTexture = myTexture
+
+const postN = new Entity("post North")
+engine.addEntity(postN)
+postN.setParent(_scene)
+postN.addComponent(new PlaneShape())
+const transformPostN = new Transform({
+  position: new Vector3(16, 18, 32),
+  rotation: new Quaternion(1, 0, 0, 0),
+  scale: new Vector3(32, 32, 0)
+})
+postN.addComponentOrReplace(transformPostN)
 const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
 myMaterial.texture = myTextureA
-myEntity.addComponent(myMaterial)
+postN.addComponent(myMaterial)
+
+const postE = new Entity("post East")
+engine.addEntity(postE)
+postE.setParent(_scene)
+postE.addComponent(new PlaneShape())
+const transformE = new Transform({
+  position: new Vector3(32, 18, 16),
+  rotation: new Quaternion(-1, 0, 1, 0),
+  scale: new Vector3(32, 32, 0)
+})
+postE.addComponentOrReplace(transformE)
+//const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
+//myMaterial.texture = myTextureA
+postE.addComponent(myMaterial)
 
 
 let messageBox = new ui.CornerLabel("-", -700, -40);
