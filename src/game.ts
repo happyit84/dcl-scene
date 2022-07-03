@@ -103,6 +103,19 @@ export async function joinSocketsServer() {
   socket.onmessage = function (event) {
     socket_msg = JSON.parse(event.data).message
     log(socket_msg)
+    if (socket_msg == 'A' || socket_msg == 'B')
+      textureSelect = socket_msg
+    else
+      log("Unknown sokcet message: " + socket_msg)
+
+    if (textureSelect == 'A')
+      myMaterial.texture = myTextureA
+    else if (textureSelect == 'B')
+      myMaterial.texture = myTextureB
+
+    const now = new Date()
+    const message = "[" + now.toTimeString() + "] Display is updated!"
+    messageBox.set(message)
   }
   /*socket.addEventListener('message', e => {
     log("your answer is: ", JSON.parse(e.data).message))
@@ -117,12 +130,8 @@ let messageBox = new ui.CornerLabel("-", -700, -40);
 const input = Input.instance
 input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   log("PRIMARY BUTTON DOWN", e)
-  myMaterial.texture = (myMaterial.texture == myTextureA ? myTextureB : myTextureA)
+  
   getUserData().then((userData: UserData) => {
-    const now = new Date()
-    const message = "[" + now.toTimeString() + "] " + userData.displayName + " pressed primary button."
-    messageBox.set(message)
-
     textureSelect = textureSelect == 'A' ? 'B' : 'A'
 
     const payload = {
