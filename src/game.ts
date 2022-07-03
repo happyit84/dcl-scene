@@ -92,6 +92,25 @@ postE.addComponentOrReplace(transformE)
 //myMaterial.texture = myTextureA
 postE.addComponent(myMaterial)
 
+let socket: WebSocket
+let socket_msg
+let textureSelect = 'A';
+
+export async function joinSocketsServer() {
+  socket = new WebSocket('wss://3f7oxp8ct8.execute-api.ap-northeast-2.amazonaws.com/production')
+  log('WebSocket is connected')
+
+  socket.onmessage = function (event) {
+    socket_msg = JSON.parse(event.data).message
+    log(socket_msg)
+  }
+  /*socket.addEventListener('message', e => {
+    log("your answer is: ", JSON.parse(e.data).message))
+  })*/
+}
+joinSocketsServer()
+
+
 
 let messageBox = new ui.CornerLabel("-", -700, -40);
 
@@ -103,5 +122,14 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     const now = new Date()
     const message = "[" + now.toTimeString() + "] " + userData.displayName + " pressed primary button."
     messageBox.set(message)
+
+    textureSelect = textureSelect == 'A' ? 'B' : 'A'
+
+    const payload = {
+      action: 'message',
+      message: textureSelect
+    }
+    socket.send(JSON.stringify(payload))
+    log('sent WebSocket message: ', payload)
   });
 })
