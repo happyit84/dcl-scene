@@ -101,6 +101,7 @@ export async function joinSocketsServer() {
   log('WebSocket is connected')
 
   socket.onmessage = function (event) {
+    log('Recieved message', event)
     socket_msg = JSON.parse(event.data).message
     log(socket_msg)
     if (socket_msg == 'A' || socket_msg == 'B')
