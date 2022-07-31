@@ -1,6 +1,10 @@
 import * as ui from '@dcl/ui-scene-utils'
 import { getUserData } from '@decentraland/Identity'
 import { UserData } from '@decentraland/Players'
+import { getProvider } from '@decentraland/web3-provider'
+import { getUserAccount } from '@decentraland/EthereumController'
+import { RequestManager, ContractFactory } from "eth-connect"
+import { SceneScheduleABI } from "abi/SceneSchedule"
 
 const _scene = new Entity('_scene')
 engine.addEntity(_scene)
@@ -95,8 +99,9 @@ postE.addComponent(myMaterial)
 let socket: WebSocket
 let socket_msg
 let textureSelect = 'A';
+myMaterial.texture = myTextureA
 
-export async function joinSocketsServer() {
+/*export async function joinSocketsServer() {
   socket = new WebSocket('wss://3f7oxp8ct8.execute-api.ap-northeast-2.amazonaws.com/production')
   log('WebSocket is connected')
 
@@ -118,28 +123,27 @@ export async function joinSocketsServer() {
     const message = "[" + now.toTimeString() + "] Display is updated!"
     messageBox.set(message)
   }
-  /*socket.addEventListener('message', e => {
-    log("your answer is: ", JSON.parse(e.data).message))
-  })*/
+  //socket.addEventListener('message', e => {
+  //  log("your answer is: ", JSON.parse(e.data).message))
+  //})
 }
-joinSocketsServer()
+joinSocketsServer()*/
 
 
 
 let messageBox = new ui.CornerLabel("-", -700, -40);
 
-const input = Input.instance
-input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
-  log("PRIMARY BUTTON DOWN", e)
-  
-  getUserData().then((userData: UserData) => {
-    textureSelect = textureSelect == 'A' ? 'B' : 'A'
-
-    const payload = {
-      action: 'message',
-      message: textureSelect
-    }
-    socket.send(JSON.stringify(payload))
-    log('sent WebSocket message: ', payload)
-  });
+executeTask(async () => {
+  try {
+    const provider = await getProvider()
+    const requestManager = new RequestManager(provider)
+    const factory = new ContractFactory(RequestManager, SceneScheduleABI)
+    const contract = (await factory.at("")) as any
+    const res = contract.getScheduleNow()
+    log("contract.getScheduleNow()")
+    log(res);
+  } 
+  catch (error) {
+    log(error.toString())
+  }
 })
