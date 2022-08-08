@@ -1,52 +1,30 @@
+
+export class SceneScheduleWrapper {
+	contract;
+	constructor(_contract?: any) {
+		this.contract = _contract;
+	}
+
+	async getScheduleNow() {
+		const res = await this.contract.getScheduleNow()
+		log("inside getScheduleNow()")
+		log(res[5])
+		let dataJson = JSON.parse(res[5])		
+		
+		return {
+			scheduleExist: res[0],
+			id: parseInt(res[1]),
+			startTimestamp: parseInt(res[2]),
+			endTimestamp: parseInt(res[3]),
+			booker: res[4],
+			data: dataJson,
+			paidEth: parseInt(res[6]),
+			removed: res[7]
+		}
+	}
+}
+
 export const SceneScheduleABI = [
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_startTimestamp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_endTimestamp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_data",
-				"type": "string"
-			}
-		],
-		"name": "_createSchedule",
-		"outputs": [
-			{
-				"internalType": "contract ScheduleInfo",
-				"name": "info",
-				"type": "address"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "scheduleIndex",
-				"type": "uint256"
-			}
-		],
-		"name": "_removeSchedule",
-		"outputs": [
-			{
-				"internalType": "contract ScheduleInfo",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
 	{
 		"inputs": [
 			{
@@ -68,60 +46,12 @@ export const SceneScheduleABI = [
 		"name": "createSchedule",
 		"outputs": [
 			{
-				"internalType": "contract ScheduleInfo",
-				"name": "createdScheduleInfo",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "newScheduleId",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "searchStartTimestamp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "searchEndTimestamp",
-				"type": "uint256"
-			}
-		],
-		"name": "getMySchedules",
-		"outputs": [
-			{
-				"internalType": "contract ScheduleInfo[]",
-				"name": "mySchedules",
-				"type": "address[]"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "searchStartTimestamp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "searchEndTimestamp",
-				"type": "uint256"
-			}
-		],
-		"name": "getSchedules",
-		"outputs": [
-			{
-				"internalType": "contract ScheduleInfo[]",
-				"name": "",
-				"type": "address[]"
-			}
-		],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -150,38 +80,12 @@ export const SceneScheduleABI = [
 		"name": "modifySchedule",
 		"outputs": [
 			{
-				"internalType": "contract ScheduleInfo",
-				"name": "newScheduleInfo",
+				"internalType": "contract Schedule",
+				"name": "newSchedule",
 				"type": "address"
 			}
 		],
 		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "scheduleId",
-				"type": "uint256"
-			}
-		],
-		"name": "removeSchedule",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "newFeeWeiPerSecond",
-				"type": "uint256"
-			}
-		],
-		"name": "setFee",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -207,6 +111,19 @@ export const SceneScheduleABI = [
 		],
 		"name": "OwnershipTransferred",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "scheduleId",
+				"type": "uint256"
+			}
+		],
+		"name": "removeSchedule",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -244,6 +161,19 @@ export const SceneScheduleABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "newFeeWeiPerSecond",
+				"type": "uint256"
+			}
+		],
+		"name": "setFee",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "newOwner",
 				"type": "address"
@@ -257,6 +187,35 @@ export const SceneScheduleABI = [
 	{
 		"stateMutability": "payable",
 		"type": "receive"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "searchStartTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "searchEndTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "onlyMine",
+				"type": "bool"
+			}
+		],
+		"name": "_getScheduleIds",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -381,16 +340,51 @@ export const SceneScheduleABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getNotReserved",
-		"outputs": [
+		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "searchStartTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "searchEndTimestamp",
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "pure",
+		"name": "getMyScheduleIds",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "searchStartTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "searchEndTimestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "getMySchedules",
+		"outputs": [
+			{
+				"internalType": "contract Schedule[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -410,11 +404,55 @@ export const SceneScheduleABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getScheduleDetail",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "startTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "endTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "booker",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "data",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "paidEth",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "removed",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
 				"name": "_startTimestamp",
 				"type": "uint256"
 			}
 		],
-		"name": "getScheduleIndex",
+		"name": "getScheduleId",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -429,16 +467,21 @@ export const SceneScheduleABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "keyTimestamp",
+				"name": "searchStartTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "searchEndTimestamp",
 				"type": "uint256"
 			}
 		],
-		"name": "getScheduleMapValue",
+		"name": "getScheduleIds",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "uint256"
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -454,9 +497,63 @@ export const SceneScheduleABI = [
 				"type": "bool"
 			},
 			{
-				"internalType": "contract ScheduleInfo",
-				"name": "scheduleNow",
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "startTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "endTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "booker",
 				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "data",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "paidEth",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "removed",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "searchStartTimestamp",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "searchEndTimestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "getSchedules",
+		"outputs": [
+			{
+				"internalType": "contract Schedule[]",
+				"name": "",
+				"type": "address[]"
 			}
 		],
 		"stateMutability": "view",

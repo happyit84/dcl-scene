@@ -4,7 +4,7 @@ import { UserData } from '@decentraland/Players'
 import { getProvider } from '@decentraland/web3-provider'
 import { getUserAccount } from '@decentraland/EthereumController'
 import { RequestManager, ContractFactory } from "eth-connect"
-import { SceneScheduleABI } from "abi/SceneSchedule"
+import { SceneScheduleABI, SceneScheduleWrapper } from "abi/SceneSchedule"
 
 const _scene = new Entity('_scene')
 engine.addEntity(_scene)
@@ -135,13 +135,22 @@ let messageBox = new ui.CornerLabel("-", -700, -40);
 
 executeTask(async () => {
   try {
+    log("contract.getScheduleNow() 1")
     const provider = await getProvider()
+    log("contract.getScheduleNow() 2")
     const requestManager = new RequestManager(provider)
-    const factory = new ContractFactory(RequestManager, SceneScheduleABI)
-    const contract = (await factory.at("")) as any
-    const res = contract.getScheduleNow()
+    log("contract.getScheduleNow() 3")
+    const factory = new ContractFactory(requestManager, SceneScheduleABI)
+    log("contract.getScheduleNow() 4")
+    const contract = (await factory.at("0x540d803Dc1565bcb91b3D0BB50Fa1ab6196dfe5f")) as any
+    log("contract.getScheduleNow() 5")
+    const sceneSchedule = new SceneScheduleWrapper(contract)
+
+    let res = await sceneSchedule.getScheduleNow()
     log("contract.getScheduleNow()")
-    log(res);
+    log(res)    
+    log(JSON.stringify(res))
+
   } 
   catch (error) {
     log(error.toString())
