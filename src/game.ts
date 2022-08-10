@@ -65,8 +65,8 @@ entity4.addComponentOrReplace(transform5)
 
 ////////////////////////////////////////////////////////////////////////
 
-const myTextureA = new Texture("material/decentraland-mana-logo.png")
-const myTextureB = new Texture("material/beef.jpg")
+//const myTextureA = new Texture("material/decentraland-mana-logo.png")
+//const myTextureB = new Texture("material/beef.jpg")
 
 const postN = new Entity("post North")
 engine.addEntity(postN)
@@ -79,8 +79,6 @@ const transformPostN = new Transform({
 })
 postN.addComponentOrReplace(transformPostN)
 const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
-myMaterial.texture = myTextureA
-postN.addComponent(myMaterial)
 
 const postE = new Entity("post East")
 engine.addEntity(postE)
@@ -94,12 +92,12 @@ const transformE = new Transform({
 postE.addComponentOrReplace(transformE)
 //const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
 //myMaterial.texture = myTextureA
-postE.addComponent(myMaterial)
+
 
 let socket: WebSocket
 let socket_msg
 let textureSelect = 'A';
-myMaterial.texture = myTextureA
+//myMaterial.texture = myTextureA
 
 /*export async function joinSocketsServer() {
   socket = new WebSocket('wss://3f7oxp8ct8.execute-api.ap-northeast-2.amazonaws.com/production')
@@ -145,12 +143,13 @@ executeTask(async () => {
     const contract = (await factory.at("0x540d803Dc1565bcb91b3D0BB50Fa1ab6196dfe5f")) as any
     log("contract.getScheduleNow() 5")
     const sceneSchedule = new SceneScheduleWrapper(contract)
-
-    let res = await sceneSchedule.getScheduleNow()
-    log("contract.getScheduleNow()")
-    log(res)    
-    log(JSON.stringify(res))
-
+    let s = await sceneSchedule.getScheduleNow()
+    log(s.data.img)
+    //const myTextureA = new Texture("https://drive.google.com/uc?id=1LlEPFmn1f81LZQ9sibgLwp-_x6_Tmq7I");
+    const myTextureA = new Texture("https://i.imgur.com/hjbvymd.jpeg");
+    myMaterial.texture = myTextureA
+    postN.addComponent(myMaterial)
+    postE.addComponent(myMaterial)
   } 
   catch (error) {
     log(error.toString())

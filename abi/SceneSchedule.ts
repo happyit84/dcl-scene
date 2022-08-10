@@ -9,8 +9,15 @@ export class SceneScheduleWrapper {
 		const res = await this.contract.getScheduleNow()
 		log("inside getScheduleNow()")
 		log(res[5])
-		let dataJson = JSON.parse(res[5])		
+		let data = decodeURIComponent(res[5])
+		let dataJson = {}
+		try {
+			dataJson = JSON.parse(data)
+		} catch (e) {
+			log(e.toString())
+		}
 		
+
 		return {
 			scheduleExist: res[0],
 			id: parseInt(res[1]),
