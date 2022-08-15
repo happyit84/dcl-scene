@@ -66,58 +66,40 @@ entity4.addComponentOrReplace(transform5)
 
 
 
-//let label = new ui.CornerLabel("Welcome to my world!", -100)
+// #1
+/*const myVideoClip = new VideoClip(
+  //'https://player.vimeo.com/external/552481870.m3u8?s=c312c8533f97e808fccc92b0510b085c8122a875'
+  "https://youtu.be/Cr6M59U0Pto"
+)
 
-executeTask(async () => {
-  try{
-    /*const address = (await getUserAccount()).toUpperCase()    
-    log("user address: " + address) // add DEBUG_SCENE_LOG to url parameter to see log on deployed scene
-    if (address != "0x2127aD06A0D77cb8496383D637457EF5A325A8cC".toUpperCase() && 
-        address != "0x77C233AbA2A296951BA15BD1f8496148d5eBde81".toUpperCase())
-    )
-    {
-      log("NOT Privileged User")
-      return;
-    }*/
-      
-    //const address = "0x2127aD06A0D77cb8496383D637457EF5A325A8cC".toUpperCase();
-    //const provider = await getProvider()
-    //log("after getProvide")
-    //const requestManager = new RequestManager(provider)
-    //log("after requestManager")
-    //const factory = new ContractFactory(requestManager, LockerABI)
-    //log("after ContractFactory")
-    //const contract = (await factory.at("0x35b20fFB43c773eD6f35Cac860c7c2ddf37B8747")) as any // Rinkbey network
-    //const contract = (await factory.at("0x664524fcac7f788a458709943503f79e4dd80611")) as any // Ropsten network
-    //log("after getting contract")
-    /*const res = await contract.mintToken("bafkreid4bgisghndirgd4pna7pkojkvugmntxugar72frnkyavply4bf6u", {
-      from: address,
-      gas: 200000,
-      value: 123
-    })
-    log("after mintToken")*/
-    //const res = await contract.getEthBalance(address);    
-    //log(res.toString())
+// #2
+const myVideoTexture = new VideoTexture(myVideoClip)*/
+const myTexture = new Texture("https://bafybeieettrqasqy24jkcojlal6wc6vp2bjhskkbfel3qg6cxrpt6zp5em.ipfs.nftstorage.link/")
 
-    log("1");
-    let rs1 = await utils.sendRequest("http://localhost:5001/decen-server/us-central1/api","GET");
-    log("1-1");
-    log(rs1);
-    // let rs = await utils.sendRequest(      
-    //   "http://localhost:5001/decen-server/us-central1/api/test",
-    //   "POST",
-    //   {"content-type": "application/json"},
-    //   {
-    //     contest:"{'base_url': 'https://bafkreiemnu7loonsylgh6t6un5vtp3asmovyfc3yrsbshorbagpptcduvm.ipfs.nftstorage.link', 'message': 'message from decentraland scene'}"
-    //     //'base_url': "https://bafkreiemnu7loonsylgh6t6un5vtp3asmovyfc3yrsbshorbagpptcduvm.ipfs.nftstorage.link",
-    //     //'message': "message from decentraland scene"
-    //   }
-    // );
-    log("2");
-    //log(rs);
-    //let confirmUI = new ui.CenterImage(rs, -1);
-    log("3");
-  } catch (error) {
-    log("executeTask error: " + error.toString())
-  }
-})
+// #3
+const myMaterial = new Material()
+//myMaterial.albedoTexture = myVideoTexture
+myMaterial.albedoTexture = myTexture
+myMaterial.roughness = 1
+myMaterial.specularIntensity = 0
+myMaterial.metallic = 0
+
+
+// #4
+const screen = new Entity()
+screen.addComponent(new PlaneShape())
+screen.addComponent(
+  new Transform({
+    position: new Vector3(1, 1, 1),
+  })
+)
+screen.addComponent(myMaterial)
+/*screen.addComponent(
+  new OnPointerDown(() => {
+    myVideoTexture.playing = !myVideoTexture.playing
+  })
+)*/
+engine.addEntity(screen)
+
+// #5
+//myVideoTexture.play()
