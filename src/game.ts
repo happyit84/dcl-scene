@@ -79,6 +79,8 @@ const transformPostN = new Transform({
 })
 postN.addComponentOrReplace(transformPostN)
 const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
+//const myMaterial = new Material() // use BasicMaterial for consistently bright texture
+
 
 const postE = new Entity("post East")
 engine.addEntity(postE)
@@ -92,46 +94,21 @@ const transformE = new Transform({
 postE.addComponentOrReplace(transformE)
 //const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
 //myMaterial.texture = myTextureA
-
-
-let socket: WebSocket
-let socket_msg
-let textureSelect = 'A';
-//myMaterial.texture = myTextureA
-
-/*export async function joinSocketsServer() {
-  socket = new WebSocket('wss://3f7oxp8ct8.execute-api.ap-northeast-2.amazonaws.com/production')
-  log('WebSocket is connected')
-
-  socket.onmessage = function (event) {
-    log('Recieved message', event)
-    socket_msg = JSON.parse(event.data).message
-    log(socket_msg)
-    if (socket_msg == 'A' || socket_msg == 'B')
-      textureSelect = socket_msg
-    else
-      log("Unknown sokcet message: " + socket_msg)
-
-    if (textureSelect == 'A')
-      myMaterial.texture = myTextureA
-    else if (textureSelect == 'B')
-      myMaterial.texture = myTextureB
-
-    const now = new Date()
-    const message = "[" + now.toTimeString() + "] Display is updated!"
-    messageBox.set(message)
-  }
-  //socket.addEventListener('message', e => {
-  //  log("your answer is: ", JSON.parse(e.data).message))
-  //})
-}
-joinSocketsServer()*/
+//const myVideoClip = new VideoClip("material/master.m3u8")
+//const myVideoTexture = new VideoTexture(myVideoClip)
+const myTextureA = new Texture("https://bafybeieettrqasqy24jkcojlal6wc6vp2bjhskkbfel3qg6cxrpt6zp5em.ipfs.nftstorage.link/")
+//const myTextureA = new Texture("https://i.imgur.com/ziK4m0R.png")
+myMaterial.texture = myTextureA
+//myMaterial.albedoTexture = myVideoTexture 
+postN.addComponent(myMaterial)
+postE.addComponent(myMaterial)
+//myVideoTexture.play()
 
 
 
 let messageBox = new ui.CornerLabel("-", -700, -40);
 
-executeTask(async () => {
+/*executeTask(async () => {
   try {
     log("contract.getScheduleNow() 1")
     const provider = await getProvider()
@@ -146,7 +123,7 @@ executeTask(async () => {
     let s = await sceneSchedule.getScheduleNow()
     log(s.data.img)
     //const myTextureA = new Texture("https://drive.google.com/uc?id=1LlEPFmn1f81LZQ9sibgLwp-_x6_Tmq7I");
-    const myTextureA = new Texture("https://i.imgur.com/hjbvymd.jpeg");
+    
     myMaterial.texture = myTextureA
     postN.addComponent(myMaterial)
     postE.addComponent(myMaterial)
@@ -154,4 +131,4 @@ executeTask(async () => {
   catch (error) {
     log(error.toString())
   }
-})
+})*/
