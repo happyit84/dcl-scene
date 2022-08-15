@@ -95,14 +95,15 @@ postE.addComponentOrReplace(transformE)
 //const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
 //myMaterial.texture = myTextureA
 //const myVideoClip = new VideoClip("material/master.m3u8")
-//const myVideoTexture = new VideoTexture(myVideoClip)
-const myTextureA = new Texture("https://bafybeieettrqasqy24jkcojlal6wc6vp2bjhskkbfel3qg6cxrpt6zp5em.ipfs.nftstorage.link/")
+const myVideoClip = new VideoClip("https://player.vimeo.com/external/552481870.m3u8?s=c312c8533f97e808fccc92b0510b085c8122a875")
+const myVideoTexture = new VideoTexture(myVideoClip)
+//const myTextureA = new Texture("https://bafybeieettrqasqy24jkcojlal6wc6vp2bjhskkbfel3qg6cxrpt6zp5em.ipfs.nftstorage.link/")
 //const myTextureA = new Texture("https://i.imgur.com/ziK4m0R.png")
-myMaterial.texture = myTextureA
-//myMaterial.albedoTexture = myVideoTexture 
+//myMaterial.texture = myTextureA
+myMaterial.texture = myVideoTexture 
 postN.addComponent(myMaterial)
 postE.addComponent(myMaterial)
-//myVideoTexture.play()
+myVideoTexture.play()
 
 
 
