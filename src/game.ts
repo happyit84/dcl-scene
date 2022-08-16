@@ -74,7 +74,8 @@ postN.setParent(_scene)
 postN.addComponent(new PlaneShape())
 const transformPostN = new Transform({
   position: new Vector3(16, 18, 32),
-  rotation: new Quaternion(1, 0, 0, 0),
+  //rotation: new Quaternion(1, 0, 0, 0),
+  rotation: new Quaternion(0, 0, 1, 0),
   scale: new Vector3(32, 32, 0)
 })
 postN.addComponentOrReplace(transformPostN)
@@ -83,7 +84,7 @@ const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bri
 
 
 const postE = new Entity("post East")
-
+engine.addEntity(postE)
 postE.setParent(_scene)
 postE.addComponent(new PlaneShape())
 const transformE = new Transform({
@@ -95,33 +96,13 @@ postE.addComponentOrReplace(transformE)
 //const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
 //myMaterial.texture = myTextureA
 
-//const myVideoClip = new VideoClip("https://bafybeie5znzbinheohqahsea6eqjxsjnaajqu6n757nriuovyynshhagxi.ipfs.nftstorage.link/") // IMG_0826.mp4 on ipfs
-//const myVideoClip = new VideoClip("https://ipfs.io/ipfs/bafybeie5znzbinheohqahsea6eqjxsjnaajqu6n757nriuovyynshhagxi") // IMG_0826.mp4 on ipfs
-//const myVideoClip = new VideoClip("ipfs://bafybeie5znzbinheohqahsea6eqjxsjnaajqu6n757nriuovyynshhagxi") // IMG_0826.mp4 on ipfs
-const myVideoClip = new VideoClip("https://ipfs.io/ipfs/bafybeie5znzbinheohqahsea6eqjxsjnaajqu6n757nriuovyynshhagxi") // IMG_0826.m3u8 on ipfs
-//const myVideoClip = new VideoClip("https://ipfs.io/ipfs/bafybeids5cn424zzhdy3o5dlfz4yxonc7jsopfnyx454hksokiy4m6nvii") // 20220518_133143.m3u8 on ipfs
-//const myVideoClip = new VideoClip("https://bafybeids5cn424zzhdy3o5dlfz4yxonc7jsopfnyx454hksokiy4m6nvii.ipfs.nftstorage.link/") // 20220518_133143.mp4 on ipfs
-//const myVideoClip = new VideoClip("material/20220518_133143.mp4")
-//const myVideoClip = new VideoClip("material/IMG_0826.mp4")
-//const myVideoClip = new VideoClip("https://player.vimeo.com/external/552481870.m3u8?s=c312c8533f97e808fccc92b0510b085c8122a875")
-//const myVideoClip = new VideoClip("material/master.m3u8")
-//const myVideoClip = new VideoClip("material/AnyConv.com__20220518_133143.3g2")
-const myVideoTexture = new VideoTexture(myVideoClip)
-//const myTextureA = new Texture("https://bafybeieettrqasqy24jkcojlal6wc6vp2bjhskkbfel3qg6cxrpt6zp5em.ipfs.nftstorage.link/")
-//const myTextureA = new Texture("https://i.imgur.com/ziK4m0R.png")
-//myMaterial.texture = myTextureA
-myMaterial.texture = myVideoTexture 
 postN.addComponent(myMaterial)
-//postE.addComponent(myMaterial)
-engine.addEntity(postE)
-myVideoTexture.loop = true
-myVideoTexture.play()
-
+postE.addComponent(myMaterial)
 
 
 let messageBox = new ui.CornerLabel("-", -700, -40);
 
-/*executeTask(async () => {
+executeTask(async () => {
   try {
     log("contract.getScheduleNow() 1")
     const provider = await getProvider()
@@ -135,7 +116,7 @@ let messageBox = new ui.CornerLabel("-", -700, -40);
     const sceneSchedule = new SceneScheduleWrapper(contract)
     let s = await sceneSchedule.getScheduleNow()
     log(s.data.img)
-    //const myTextureA = new Texture("https://drive.google.com/uc?id=1LlEPFmn1f81LZQ9sibgLwp-_x6_Tmq7I");
+    const myTextureA = new Texture(s.data.img);
     
     myMaterial.texture = myTextureA
     postN.addComponent(myMaterial)
@@ -144,5 +125,4 @@ let messageBox = new ui.CornerLabel("-", -700, -40);
   catch (error) {
     log(error.toString())
   }
-})*/
-
+})

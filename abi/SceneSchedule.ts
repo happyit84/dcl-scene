@@ -6,18 +6,17 @@ export class SceneScheduleWrapper {
 	}
 
 	async getScheduleNow() {
-		const res = await this.contract.getScheduleNow()
+		const res = await this.contract.getScheduleNow() // commentize when testing
 		log("inside getScheduleNow()")
 		log(res[5])
 		let data = decodeURIComponent(res[5])
-		let dataJson = {}
+		let dataJson : any
 		try {
 			dataJson = JSON.parse(data)
 		} catch (e) {
 			log(e.toString())
 		}
 		
-
 		return {
 			scheduleExist: res[0],
 			id: parseInt(res[1]),
