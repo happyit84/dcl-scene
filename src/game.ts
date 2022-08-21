@@ -69,40 +69,89 @@ entity4.addComponentOrReplace(transform5)
 //const myTextureB = new Texture("material/beef.jpg")
 
 const postN = new Entity("post North")
-engine.addEntity(postN)
-postN.setParent(_scene)
+//engine.addEntity(postN)
+//postN.setParent(_scene)
 postN.addComponent(new PlaneShape())
 const transformPostN = new Transform({
-  position: new Vector3(16, 18, 32),
+  position: new Vector3(16, 12, 32),
   //rotation: new Quaternion(1, 0, 0, 0),
   rotation: new Quaternion(0, 0, 1, 0),
-  scale: new Vector3(32, 32, 0)
+  scale: new Vector3(32, 20, 0)
 })
 postN.addComponentOrReplace(transformPostN)
 const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
-//const myMaterial = new Material() // use BasicMaterial for consistently bright texture
 
 
 const postE = new Entity("post East")
-engine.addEntity(postE)
-postE.setParent(_scene)
+//engine.addEntity(postE)
+//postE.setParent(_scene)
 postE.addComponent(new PlaneShape())
 const transformE = new Transform({
-  position: new Vector3(32, 18, 16),
+  position: new Vector3(32, 12, 16),
   rotation: new Quaternion(-1, 0, 1, 0),
-  scale: new Vector3(32, 32, 0)
+  scale: new Vector3(32, 20, 0)
 })
 postE.addComponentOrReplace(transformE)
-//const myMaterial = new BasicMaterial() // use BasicMaterial for consistently bright texture
-//myMaterial.texture = myTextureA
 
 postN.addComponent(myMaterial)
 postE.addComponent(myMaterial)
 
 
-let messageBox = new ui.CornerLabel("-", -700, -40);
-
-executeTask(async () => {
+let messageBox = new ui.CornerLabel("Welcome to Shin's Open 2x2 Land!", -700, -40);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+const linkTexture = new Texture("material/link_double_v1.png")
+const linkMaterial = new BasicMaterial()
+linkMaterial.texture = linkTexture
+const linkOnPointerDown = new OnPointerDown(() => {
+  openExternalURL("https://double.one/assets/eth/0xcd131eb7fb4ee596a0e1668196f4cf16ab87f58a/3")
+})
+const linkShape = new PlaneShape()
+///////////////////////////////////////////////////////////////////////////////
+const linkEntity11 = new Entity()
+linkEntity11.addComponent(new Transform({
+  position: new Vector3(16,1.4,32),
+  scale: new Vector3(5.848, -1, 1)
+}))
+linkEntity11.addComponent(linkShape)
+linkEntity11.addComponent(linkOnPointerDown)
+linkEntity11.addComponent(linkMaterial)
+engine.addEntity(linkEntity11)
+///////////////////////////////////////////////////////////////////////////////
+const linkEntity12 = new Entity()
+linkEntity12.addComponent(new Transform({
+  position: new Vector3(16,1.4,31.999),
+  scale: new Vector3(-5.848, -1, 1)
+}))
+linkEntity12.addComponent(linkShape)
+linkEntity12.addComponent(linkOnPointerDown)
+linkEntity12.addComponent(linkMaterial)
+engine.addEntity(linkEntity12)
+///////////////////////////////////////////////////////////////////////////////
+const linkEntity21 = new Entity()
+linkEntity21.addComponent(new Transform({
+  position: new Vector3(32,1.4,16),
+  rotation: new Quaternion(-1, 0, 1, 0),
+  scale: new Vector3(5.848, 1, 1)
+}))
+linkEntity21.addComponent(linkShape)
+linkEntity21.addComponent(linkOnPointerDown)
+linkEntity21.addComponent(linkMaterial)
+engine.addEntity(linkEntity21)
+///////////////////////////////////////////////////////////////////////////////
+const linkEntity22 = new Entity()
+linkEntity22.addComponent(new Transform({
+  position: new Vector3(31.999,1.4,16),
+  rotation: new Quaternion(-1, 0, 1, 0),
+  scale: new Vector3(-5.848, 1, 1)
+}))
+linkEntity22.addComponent(linkShape)
+linkEntity22.addComponent(linkOnPointerDown)
+linkEntity22.addComponent(linkMaterial)
+engine.addEntity(linkEntity22)
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*executeTask(async () => {
   try {
     log("contract.getScheduleNow() 1")
     const provider = await getProvider()
@@ -125,4 +174,4 @@ executeTask(async () => {
   catch (error) {
     log(error.toString())
   }
-})
+})*/
