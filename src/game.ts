@@ -111,7 +111,7 @@ const linkShape = new PlaneShape()
 const linkEntity11 = new Entity()
 linkEntity11.addComponent(new Transform({
   //position: new Vector3(16,1.4,32),
-  position: new Vector3(3,1.4,16),
+  position: new Vector3(3.5,1.4,4),
   scale: new Vector3(5.848, -1, 1)
 }))
 linkEntity11.addComponent(linkShape)
@@ -121,7 +121,7 @@ engine.addEntity(linkEntity11)
 ///////////////////////////////////////////////////////////////////////////////
 const linkEntity12 = new Entity()
 linkEntity12.addComponent(new Transform({
-  position: new Vector3(3,1.4,15.999),
+  position: new Vector3(3.5,1.4,3.999),
   scale: new Vector3(-5.848, -1, 1)
 }))
 linkEntity12.addComponent(linkShape)
@@ -131,7 +131,7 @@ engine.addEntity(linkEntity12)
 ///////////////////////////////////////////////////////////////////////////////
 const linkEntity21 = new Entity()
 linkEntity21.addComponent(new Transform({
-  position: new Vector3(32,1.4,16),
+  position: new Vector3(24,1.4,24),
   rotation: new Quaternion(-1, 0, 1, 0),
   scale: new Vector3(5.848, 1, 1)
 }))
@@ -142,7 +142,7 @@ engine.addEntity(linkEntity21)
 ///////////////////////////////////////////////////////////////////////////////
 const linkEntity22 = new Entity()
 linkEntity22.addComponent(new Transform({
-  position: new Vector3(31.999,1.4,16),
+  position: new Vector3(23.999,1.4,24),
   rotation: new Quaternion(-1, 0, 1, 0),
   scale: new Vector3(-5.848, 1, 1)
 }))
