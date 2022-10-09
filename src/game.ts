@@ -111,7 +111,7 @@ executeTask(async () => {
     log("contract.getScheduleNow() 3")
     const factory = new ContractFactory(requestManager, SceneScheduleABI)
     log("contract.getScheduleNow() 4")
-    const contract = (await factory.at("0x540d803Dc1565bcb91b3D0BB50Fa1ab6196dfe5f")) as any
+    const contract = (await factory.at("0xDae1C48919e9282c36297DCb4b859f3D6966d674")) as any // contract address on Goerli testnet
     log("contract.getScheduleNow() 5")
     const sceneSchedule = new SceneScheduleWrapper(contract)
     let s = await sceneSchedule.getScheduleNow()
